@@ -1,0 +1,1496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quality Cyber - Premium Internet Cafe</title>
+    <!-- Font Awesome CDN for WhatsApp and other Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #e0e0e0;
+            background: linear-gradient(135deg, #1a1a3d 0%, #2a2a5e 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Professional Navbar Styles */
+        header {
+            background: rgba(10, 10, 30, 0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            background: rgba(10, 10, 30, 0.98);
+            box-shadow: 0 4px 20px rgba(0, 255, 204, 0.2);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #00ffcc;
+            text-shadow: 0 0 8px rgba(0, 255, 204, 0.6);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo i {
+            font-size: 2rem;
+            animation: pulse 2s infinite;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links li {
+            position: relative;
+        }
+
+        .nav-links a {
+            color: #e0e0e0;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            padding: 0.8rem 1.2rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links a i {
+            font-size: 1.2rem;
+        }
+
+        .nav-links a:hover {
+            color: #00ffcc;
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 10px rgba(0, 255, 204, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #00ffcc, #ff00ff);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-links a:hover::after {
+            width: 70%;
+        }
+
+        /* Dropdown Menu */
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: rgba(10, 10, 30, 0.95);
+            backdrop-filter: blur(12px);
+            border-radius: 8px;
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0, 255, 204, 0.2);
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: 0.8rem 1.2rem;
+            color: #e0e0e0;
+            font-size: 1rem;
+            border-radius: 0;
+        }
+
+        .dropdown-content a:hover {
+            background: rgba(255, 255, 255, 0.15);
+            color: #00ffcc;
+        }
+
+        /* CTA Button in Navbar */
+        .nav-cta {
+            background: linear-gradient(45deg, #00ffcc, #ff00ff);
+            color: #e0e0e0;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(0, 255, 204, 0.3);
+        }
+
+        .nav-cta:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0, 255, 204, 0.4);
+        }
+
+        /* Mobile Menu Toggle */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            width: 30px;
+            height: 20px;
+            position: relative;
+        }
+
+        .menu-toggle span {
+            width: 100%;
+            height: 3px;
+            background: #00ffcc;
+            position: absolute;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            border-radius: 2px;
+        }
+
+        .menu-toggle span:nth-child(1) { top: 0; }
+        .menu-toggle span:nth-child(2) { top: 8px; }
+        .menu-toggle span:nth-child(3) { top: 16px; }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #e0e0e0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 10, 30, 0.5);
+            z-index: 1;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><path d="M0,200 Q500,0 1000,200 T1000,800 Q500,1000 0,800 T0,200" fill="rgba(0, 255, 204, 0.1)"/></svg>');
+            background-size: cover;
+            animation: morphBackground 10s ease-in-out infinite;
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            animation: fadeInUp 1s ease-out;
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 20px rgba(0, 255, 204, 0.8);
+        }
+
+        .hero .tagline {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: #cccccc;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
+            max-width: 700px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+        }
+
+        .cta-button {
+            background: linear-gradient(45deg, #00ffcc, #ff00ff);
+            color: #e0e0e0;
+            padding: 15px 35px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-block;
+            box-shadow: 0 10px 30px rgba(0, 255, 204, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button.secondary {
+            background: linear-gradient(45deg, #ff00ff, #00ffcc);
+        }
+
+        .cta-button:hover {
+            border-radius: 10px;
+            transform: scale(1.1) translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 255, 204, 0.5);
+        }
+
+        .cta-button:active {
+            border-radius: 50%;
+            transform: scale(0.95);
+            box-shadow: 0 5px 20px rgba(0, 255, 204, 0.4);
+        }
+
+        /* Floating elements */
+        .floating-element {
+            position: absolute;
+            opacity: 0.15;
+            animation: float 6s ease-in-out infinite;
+            font-size: 2rem;
+        }
+
+        .floating-element:nth-child(1) { top: 15%; left: 10%; animation-delay: 0s; }
+        .floating-element:nth-child(2) { top: 55%; right: 10%; animation-delay: 2s; }
+        .floating-element:nth-child(3) { bottom: 15%; left: 20%; animation-delay: 4s; }
+        .floating-element:nth-child(4) { top: 30%; right: 20%; animation-delay: 1s; }
+        .floating-element:nth-child(5) { bottom: 30%; left: 15%; animation-delay: 3s; }
+
+        /* WhatsApp Floating Icon */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .whatsapp-float a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(45deg, #00ffcc, #ff00ff);
+            border-radius: 50%;
+            text-decoration: none;
+            color: #e0e0e0;
+            font-size: 2.5rem;
+            box-shadow: 0 10px 20px rgba(0, 255, 204, 0.3);
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            position: relative;
+;
+        }
+
+        .whatsapp-float a::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 10%, transparent 10.01%);
+            transform: scale(0);
+            transition: transform 0.5s ease;
+        }
+
+        .whatsapp-float a:hover::after {
+            transform: scale(6);
+        }
+
+        .whatsapp-float a:hover {
+            border-radius: 15px;
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 15px 30px rgba(0, 255, 204, 0.5);
+        }
+
+        /* Services Section */
+        .services {
+            padding: 6rem 0;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+        }
+
+        .services h2 {
+            text-align: center;
+            font-size: 3.5rem;
+            margin-bottom: 4rem;
+            color: #e0e0e0;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+            margin-top: 4rem;
+        }
+
+        .service-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 2.5rem;
+            text-align: center;
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #e0e0e0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            border-radius: 10px;
+            box-shadow: 0 20px 40px rgba(0, 255, 204, 0.3);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .service-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            color: #00ffcc;
+            text-shadow: 0 0 10px rgba(0, 255, 204, 0.5);
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .service-card:hover .service-icon {
+            transform: scale(1.2) rotate(10deg);
+        }
+
+        .service-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #00ffcc;
+        }
+
+        .service-price {
+            font-size: 1.2rem;
+            color: #cccccc;
+            margin-top: 1rem;
+        }
+
+        /* About Section */
+        .about {
+            padding: 6rem 0;
+            background: rgba(10, 10, 30, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-text {
+            color: #e0e0e0;
+        }
+
+        .about h2 {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            color: #00ffcc;
+        }
+
+        .about p {
+            margin-bottom: 2rem;
+            font-size: 1.2rem;
+            line-height: 1.8;
+        }
+
+        .mission-vision {
+            margin-top: 2rem;
+        }
+
+        .mission-vision h3 {
+            color: #00ffcc;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .team {
+            margin-top: 3rem;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .team-member {
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .team-member:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .team-member img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-bottom: 1rem;
+            object-fit: cover;
+        }
+
+        .team-member h4 {
+            color: #00ffcc;
+            font-size: 1.2rem;
+        }
+
+        .team-member p {
+            font-size: 0.9rem;
+            color: #cccccc;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .stat-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .stat-item:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: scale(1.05);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #00ffcc;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: #cccccc;
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            padding: 6rem 0;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+        }
+
+        .testimonials h2 {
+            text-align: center;
+            font-size: 3.5rem;
+            margin-bottom: 4rem;
+            color: #e0e0e0;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            color: #e0e0e0;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .testimonial-card p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .testimonial-author {
+            font-size: 1rem;
+            color: #00ffcc;
+        }
+
+        /* FAQ Section */
+        .faq {
+            padding: 6rem 0;
+            background: rgba(10, 10, 30, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .faq h2 {
+            text-align: center;
+            font-size: 3.5rem;
+            margin-bottom: 4rem;
+            color: #e0e0e0;
+        }
+
+        .faq-item {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #00ffcc;
+            font-size: 1.2rem;
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem 1.5rem;
+            display: none;
+            color: #e0e0e0;
+            font-size: 1rem;
+        }
+
+        .faq-answer.active {
+            display: block;
+        }
+
+        .faq-question i {
+            transition: transform 0.3s ease;
+        }
+
+        .faq-question.active i {
+            transform: rotate(180deg);
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 6rem 0;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+        }
+
+        .contact h2 {
+            text-align: center;
+            font-size: 3.5rem;
+            margin-bottom: 4rem;
+            color: #e0e0e0;
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .contact-info {
+            color: #e0e0e0;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateX(10px);
+        }
+
+        .contact-item i {
+            font-size: 2rem;
+            margin-right: 1.5rem;
+            color: #00ffcc;
+        }
+
+        .map-container {
+            margin-top: 2rem;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 255, 204, 0.2);
+        }
+
+        .contact-form {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2.5rem;
+            border-radius: 20px;
+            backdrop-filter: blur(15px);
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1.2rem;
+            border: none;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            color: #e0e0e0;
+            font-size: 1.1rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 0 20px rgba(0, 255, 204, 0.3);
+            transform: scale(1.02);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .submit-btn {
+            background: linear-gradient(45deg, #00ffcc, #ff00ff);
+            color: #e0e0e0;
+            padding: 1.2rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 255, 204, 0.4);
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(10, 10, 30, 0.95);
+            color: #e0e0e0;
+            padding: 3rem 0;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h3 {
+            color: #00ffcc;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: #cccccc;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .footer-section a:hover {
+            color: #00ffcc;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a {
+            display: inline-block;
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(45deg, #00ffcc, #ff00ff);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 45px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .social-links a:hover {
+            border-radius: 10px;
+            transform: translateY(-3px) rotate(360deg);
+            background: linear-gradient(45deg, #ff00ff, #00ffcc);
+            box-shadow: 0 10px 20px rgba(0, 255, 204, 0.3);
+        }
+
+        .newsletter {
+            margin-top: 2rem;
+        }
+
+        .newsletter input {
+            padding: 0.8rem;
+            width: 70%;
+            border: none;
+            border-radius: 25px 0 0 25px;
+            background: rgba(255, 255, 255, 0.2);
+            color: #e0e0e0;
+        }
+
+        .newsletter button {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 0 25px 25px 0;
+            background: linear-gradient(45deg, #00ffcc, #ff00ff);
+            color: #e0e0e0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .newsletter button:hover {
+            background: linear-gradient(45deg, #ff00ff, #00ffcc);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            padding-top: 2.5rem;
+            color: #cccccc;
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes morphBackground {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2) translateY(-10%); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .menu-toggle { display: flex; }
+
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background: rgba(10, 10, 30, 0.95);
+                backdrop-filter: blur(12px);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 2rem;
+                transition: left 0.3s ease;
+                padding: 2rem 0;
+            }
+
+            .nav-links.active { left: 0; }
+
+            .nav-links a {
+                font-size: 1.5rem;
+                padding: 1rem;
+            }
+
+            .dropdown-content {
+                position: static;
+                background: rgba(255, 255, 255, 0.1);
+                width: 100%;
+                text-align: center;
+            }
+
+            .dropdown:hover .dropdown-content {
+                display: none;
+            }
+
+            .dropdown.active .dropdown-content {
+                display: block;
+            }
+
+            .nav-cta {
+                margin-top: 1rem;
+                width: 80%;
+                text-align: center;
+            }
+
+            .hero h1 { font-size: 3rem; }
+            .hero .tagline { font-size: 1.2rem; }
+            .hero p { font-size: 1.1rem; }
+            .cta-buttons { flex-direction: column; gap: 1rem; }
+
+            .services h2 { font-size: 2.5rem; }
+            .about-content { grid-template-columns: 1fr; }
+            .contact-content { grid-template-columns: 1fr; }
+            .testimonials h2 { font-size: 2.5rem; }
+            .faq h2 { font-size: 2.5rem; }
+            .stats { grid-template-columns: 1fr; }
+            .whatsapp-float a { width: 60px; height: 60px; font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">
+                <i class="fas fa-wifi"></i> Quality Cyber
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home"><i class="fas fa-home"></i> Home</a></li>
+                <li class="dropdown">
+                    <a href="#services"><i class="fas fa-concierge-bell"></i> Services <i class="fas fa-chevron-down"></i></a>
+                    <div class="dropdown-content">
+                        <a href="#services">High-Speed Internet</a>
+                        <a href="#services">Gaming Stations</a>
+                        <a href="#services">eCitizen Services</a>
+                        <a href="#services">Graphic Design</a>
+                    </div>
+                </li>
+                <li><a href="#about"><i class="fas fa-info-circle"></i> About</a></li>
+                <li><a href="#testimonials"><i class="fas fa-quote-left"></i> Testimonials</a></li>
+                <li><a href="#faq"><i class="fas fa-question-circle"></i> FAQ</a></li>
+                <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
+                <li><a href="https://wa.me/254795845970" class="nav-cta"><i class="fab fa-whatsapp"></i> Chat Now</a></li>
+            </ul>
+            <div class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero" id="home">
+        <div class="floating-element">💻</div>
+        <div class="floating-element">🌐</div>
+        <div class="floating-element">⚡</div>
+        <div class="floating-element">🎮</div>
+        <div class="floating-element">🖨️</div>
+        
+        <div class="hero-content">
+            <h1>Quality Cyber</h1>
+            <div class="tagline">Your Premier Digital Hub in Karura</div>
+            <p>Experience unmatched internet speeds, cutting-edge technology, and professional services at Quality Cyber. From eCitizen account creation to high-end gaming and business solutions, we're your one-stop destination for all digital needs.</p>
+            <div class="cta-buttons">
+                <a href="#services" class="cta-button">Explore Services</a>
+                <a href="#contact" class="cta-button secondary">Contact Us</a>
+            </div>
+        </div>
+    </section>
+
+    <div class="whatsapp-float">
+        <a href="https://wa.me/254795845970" target="_blank" title="Chat with us on WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+    </div>
+
+    <section class="services" id="services">
+        <div class="container">
+            <h2>Our Comprehensive Services</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">🌐</div>
+                    <h3>High-Speed Internet</h3>
+                    <p>Access our fiber optic network with speeds up to 100Mbps for seamless browsing, streaming, and downloads.</p>
+                    <div class="service-price">KSh 100/hour</div>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🎮</div>
+                    <h3>Gaming Stations</h3>
+                    <p>High-performance PCs with RTX graphics cards, 144Hz monitors, and premium peripherals for competitive gaming.</p>
+                    <div class="service-price">KSh 200/hour</div>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🖨️</div>
+                    <h3>Printing & Scanning</h3>
+                    <p>High-quality printing and scanning for documents, photos, and presentations with same-day service.</p>
+                    <div class="service-price">KSh 10/page</div>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">📚</div>
+                    <h3>Study Area</h3>
+                    <p>Quiet, air-conditioned spaces with ergonomic seating and dedicated Wi-Fi for focused studying.</p>
+                    <div class="service-price">KSh 50/hour</div>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">💼</div>
+                    <h3>Business Solutions</h3>
+                    <p>Professional setups for video conferencing, cloud services, and digital marketing solutions for businesses.</p>
+                    <div class="service-price">From KSh 500/session</div>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🔧</div>
+                    <h3>Tech Support</h3>
+                    <p>Expert troubleshooting, software installation, and hardware maintenance by certified technicians.</p>
+                    <div class="service-price">From KSh 1000</div>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🧑‍💼</div>
+                    <h3>eCitizen Account Creation</h3>
+                    <p>Guided assistance for setting up eCitizen accounts with secure verification processes.</p>
+                    <div class="service-price">KSh 200/account</div>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">📝</div>
+                    <h3>eCitizen Services</h3>
+                    <p>Support for passport applications, visa services, driving licenses, and other government services.</p>
+                    <div class="service-price">From KSh 300/service</div>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">📸</div>
+                    <h3>Photo Services</h3>
+                    <p>Professional passport photos, photo editing, and digital printing with studio-quality results.</p>
+                    <div class="service-price">KSh 150/photo</div>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">💾</div>
+                    <h3>Data Recovery</h3>
+                    <p>Advanced data recovery for hard drives, USB drives, and SD cards with high success rates.</p>
+                    <div class="service-price">From KSh 2000</div>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🖥️</div>
+                    <h3>Graphic Design</h3>
+                    <p>Custom designs for logos, posters, banners, and social media content by experienced designers.</p>
+                    <div class="service-price">From KSh 1000/project</div>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">📧</div>
+                    <h3>Email & Social Media Setup</h3>
+                    <p>Professional setup and management of email accounts and social media profiles.</p>
+                    <div class="service-price">KSh 500/setup</div>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">📄</div>
+                    <h3>Document Preparation</h3>
+                    <p>Expert typing, formatting, and editing for CVs, cover letters, and official documents.</p>
+                    <div class="service-price">From KSh 200/document</div>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">📶</div>
+                    <h3>Wi-Fi Hotspot</h3>
+                    <p>Secure, high-speed Wi-Fi access for your personal devices with unlimited data options.</p>
+                    <div class="service-price">KSh 150/hour</div>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">📖</div>
+                    <h3>Bookshop Services</h3>
+                    <p>Wide selection of textbooks, stationery, and educational materials for students and professionals.</p>
+                    <div class="service-price">From KSh 100/item</div>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">👕</div>
+                    <h3>School Uniform Selling</h3>
+                    <p>Quality school uniforms for all ages, including custom fittings and bulk purchase options.</p>
+                    <div class="service-price">From KSh 500/item</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="about" id="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>About Quality Cyber</h2>
+                    <p>Founded in 2018, Quality Cyber has become Kiambu's leading internet cafe, offering a blend of cutting-edge technology and exceptional customer service. Our state-of-the-art facility is equipped with the latest hardware, high-speed fiber optic internet, and a team of dedicated professionals.</p>
+                    <p>We cater to a diverse clientele, including students, professionals, and businesses, providing everything from eCitizen services to graphic design and tech support. Our commitment to quality ensures every visitor leaves satisfied.</p>
+                    <div class="mission-vision">
+                        <h3>Our Mission</h3>
+                        <p>To empower our community with accessible, reliable, and innovative digital solutions that enhance productivity and connectivity.</p>
+                        <h3>Our Vision</h3>
+                        <p>To be the leading digital hub in Kenya, setting the standard for excellence in internet and technology services.</p>
+                    </div>
+                    <div class="team">
+                        <h3>Meet Our Team</h3>
+                        <div class="team-grid">
+                            <div class="team-member">
+                                <img src="https://via.placeholder.com/100" alt="Team Member">
+                                <h4>John Kamau</h4>
+                                <p>Founder & CEO</p>
+                            </div>
+                            <div class="team-member">
+                                <img src="https://via.placeholder.com/100" alt="Team Member">
+                                <h4>Mary Wanjiku</h4>
+                                <p>Operations Manager</p>
+                            </div>
+                            <div class="team-member">
+                                <img src="https://via.placeholder.com/100" alt="Team Member">
+                                <h4>Peter Mwangi</h4>
+                                <p>Lead Technician</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="stats">
+                    <div class="stat-item">
+                        <div class="stat-number">5000+</div>
+                        <div class="stat-label">Happy Customers</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">75+</div>
+                        <div class="stat-label">Workstations</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">24/7</div>
+                        <div class="stat-label">Support</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">99.9%</div>
+                        <div class="stat-label">Uptime</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <h2>What Our Clients Say</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <p>"Quality Cyber's high-speed internet and gaming stations are top-notch. The staff is always helpful, and the environment is perfect for both work and play."</p>
+                    <div class="testimonial-author">Sarah M., Student</div>
+                </div>
+                <div class="testimonial-card">
+                    <p>"I got my eCitizen account set up in minutes, and their printing services are affordable and high-quality. Highly recommend!"</p>
+                    <div class="testimonial-author">James K., Entrepreneur</div>
+                </div>
+                <div class="testimonial-card">
+                    <p>"The tech support team saved my important files from a corrupted drive. Professional and efficient service!"</p>
+                    <div class="testimonial-author">Linda W., Business Owner</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq" id="faq">
+        <div class="container">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-item">
+                <div class="faq-question">What are your operating hours? <i class="fas fa-chevron-down"></i></div>
+                <div class="faq-answer">We are open Monday to Saturday from 7:00 AM to 10:00 PM, and Sunday from 8:00 AM to 8:00 PM.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Do you offer bulk printing discounts? <i class="fas fa-chevron-down"></i></div>
+                <div class="faq-answer">Yes, we offer discounts for printing over 50 pages. Contact us for a custom quote.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Can I bring my own device? <i class="fas fa-chevron-down"></i></div>
+                <div class="faq-answer">Absolutely! We provide secure Wi-Fi access for personal devices at competitive rates.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">What eCitizen services do you support? <i class="fas fa-chevron-down"></i></div>
+                <div class="faq-answer">We assist with passport applications, visa services, driving license applications, and more.</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2>Get In Touch</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h3>Location</h3>
+                            <p>Karura, Kiambu, Kenya<br>Next to Karura Shopping Center</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h3>Phone</h3>
+                            <p>+254795845970</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h3>Email</h3>
+                            <p>254qualitycyber@gmail.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <h3>Hours</h3>
+                            <p>Mon-Sat: 7:00 AM - 10:00 PM<br>Sun: 8:00 AM - 8:00 PM</p>
+                        </div>
+                    </div>
+                    <div class="map-container">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7977.905417222543!2d36.72157913446425!3d-1.1935221665231666!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f23541b326443%3A0x7d2f990fa55ef949!2sQuality%20Cyber!5e0!3m2!1sen!2ske!4v1752844664997!5m2!1sen!2ske" width="700" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <input type="text" id="name" name="name" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="email" name="email" placeholder="Your Email" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" id="phone" name="phone" placeholder="Your Phone">
+                        </div>
+                        <div class="form-group">
+                            <textarea id="message" name="message" placeholder="Your Message" required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Quality Cyber</h3>
+                    <p>Your trusted partner for premium internet and digital services in Kiambu. Experience technology at its best.</p>
+                    <div class="social-links">
+                        <a href="https://facebook.com/qualitycyber"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://twitter.com/qualitycyber"><i class="fab fa-twitter"></i></a>
+                        <a href="https://instagram.com/qualitycyber"><i class="fab fa-instagram"></i></a>
+                        <a href="https://wa.me/254795845970"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                    <div class="newsletter">
+                        <h3>Stay Updated</h3>
+                        <form id="newsletterForm">
+                            <input type="email" placeholder="Your Email" required>
+                            <button type="submit">Subscribe</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <p><a href="#home">Home</a></p>
+                    <p><a href="#services">Services</a></p>
+                    <p><a href="#about">About</a></p>
+                    <p><a href="#testimonials">Testimonials</a></p>
+                    <p><a href="#faq">FAQ</a></p>
+                    <p><a href="#contact">Contact</a></p>
+                </div>
+                <div class="footer-section">
+                    <h3>Popular Services</h3>
+                    <p><a href="#services">High-Speed Internet</a></p>
+                    <p><a href="#services">eCitizen Services</a></p>
+                    <p><a href="#services">Gaming Stations</a></p>
+                    <p><a href="#services">Graphic Design</a></p>
+                    <p><a href="#services">Tech Support</a></p>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Info</h3>
+                    <p>Karura, Kiambu, Kenya</p>
+                    <p>+254795845970</p>
+                    <p>✉️ 254qualitycyber@gmail.com</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 Quality Cyber. All rights reserved. | Designed with excellence by Quality Cyber Team.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            menuToggle.classList.toggle('active');
+        });
+
+        // Dropdown toggle for mobile
+        document.querySelectorAll('.dropdown').forEach(dropdown => {
+            dropdown.addEventListener('click', (e) => {
+                if (window.innerWidth <= 768) {
+                    e.preventDefault();
+                    dropdown.classList.toggle('active');
+                }
+            });
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                if (!this.closest('.dropdown-content')) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                        navLinks.classList.remove('active');
+                        menuToggle.classList.remove('active');
+                    }
+                }
+            });
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Form submission to WhatsApp
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const name = formData.get('name');
+            const email = formData.get('email');
+            const phone = formData.get('phone');
+            const message = formData.get('message');
+
+            if (!name || !email || !message) {
+                alert('Please fill in all required fields.');
+                return;
+            }
+
+            const whatsappNumber = '254795845970';
+            const whatsappMessage = `Hello Quality Cyber,%0A%0AName: ${encodeURIComponent(name)}%0AEmail: ${encodeURIComponent(email)}%0APhone: ${phone ? encodeURIComponent(phone) : 'Not provided'}%0AMessage: ${encodeURIComponent(message)}`;
+            const whatsappURL = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
+
+            const submitBtn = this.querySelector('.submit-btn');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Sending...';
+            submitBtn.disabled = true;
+
+            setTimeout(() => {
+                window.open(whatsappURL, '_blank');
+                alert('Redirecting to WhatsApp...');
+                this.reset();
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }, 1000);
+        });
+
+        // Newsletter form submission
+        document.getElementById('newsletterForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = this.querySelector('input').value;
+            if (!email) {
+                alert('Please enter a valid email address.');
+                return;
+            }
+            alert('Thank you for subscribing! You will receive updates soon.');
+            this.reset();
+        });
+
+        // FAQ toggle
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                const isActive = answer.classList.contains('active');
+                
+                document.querySelectorAll('.faq-answer').forEach(ans => {
+                    ans.classList.remove('active');
+                    ans.previousElementSibling.classList.remove('active');
+                });
+
+                if (!isActive) {
+                    answer.classList.add('active');
+                    question.classList.add('active');
+                }
+            });
+        });
+
+        // Animate elements on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.service-card, .stat-item, .contact-item, .testimonial-card, .faq-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(50px)';
+            el.style.transition = 'all 0.6s ease';
+            observer.observe(el);
+        });
+
+        // Typing effect for hero text
+        const heroText = document.querySelector('.hero h1');
+        const text = heroText.textContent;
+        heroText.textContent = '';
+        let i = 0;
+
+        function typeWriter() {
+            if (i < text.length) {
+                heroText.textContent += text.charAt(i);
+                i++;
+                setTimeout(typeWriter, 100);
+            }
+        }
+
+        window.addEventListener('load', () => {
+            setTimeout(typeWriter, 1000);
+        });
+
+        // Particle effect for hero section
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.style.position = 'absolute';
+            particle.style.width = '6px';
+            particle.style.height = '6px';
+            particle.style.background = '#00ffcc';
+            particle.style.borderRadius = '50%';
+            particle.style.pointerEvents = 'none';
+            particle.style.animation = 'float 4s ease-in-out infinite';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = Math.random() * 100 + '%';
+            particle.style.opacity = '0.7';
+            
+            document.querySelector('.hero').appendChild(particle);
+            
+            setTimeout(() => {
+                particle.remove();
+            }, 4000);
+        }
+
+        setInterval(createParticle, 1500);
+
+        // Glow effect for service cards
+        document.querySelectorAll('.service-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.boxShadow = '0 0 30px rgba(0, 255, 204, 0.3)';
+            });
+            card.addEventListener('mouseleave', function() {
+                this.style.boxShadow = '0 20px 40px rgba(0, 255, 204, 0.3)';
+            });
+        });
+
+        // Dynamic morphing for service cards
+        const serviceCards = document.querySelectorAll('.service-card');
+        window.addEventListener('scroll', () => {
+            serviceCards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                if (rect.top < window.innerHeight * 0.8) {
+                    card.style.borderRadius = `${20 - (rect.top / window.innerHeight) * 10}px`;
+                }
+            });
+        });
+
+        // Morph hero content
+        const heroContent = document.querySelector('.hero-content');
+        heroContent.style.transform = 'scale(0.8)';
+        heroContent.style.opacity = '0';
+        setTimeout(() => {
+            heroContent.style.transition = 'all 1s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
+            heroContent.style.transform = 'scale(1)';
+            heroContent.style.opacity = '1';
+        }, 500);
+    </script>
+</body>
+</html>
